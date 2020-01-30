@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.nomeEmpresa.workshopmongo.domain.User;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String>{
+public interface UserRepository extends MongoRepository<User, String> {
 
 }
