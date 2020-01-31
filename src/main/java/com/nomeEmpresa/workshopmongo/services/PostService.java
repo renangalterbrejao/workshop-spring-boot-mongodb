@@ -1,5 +1,6 @@
 package com.nomeEmpresa.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +21,10 @@ public class PostService {
 
 	@Autowired
 	private PostRepository repo;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -34,14 +35,14 @@ public class PostService {
 	}
 
 	public Post insert(Post obj) {
-		
+
 		repo.insert(obj);
-		
+
 		User user = userService.findById(obj.getAuthor().getId());
-		
+
 		user.getPosts().add(obj);
 		userRepository.save(user);
-		
+
 		return obj;
 	}
 
@@ -69,9 +70,15 @@ public class PostService {
 		newPost.setBody(obj.getBody());
 		newPost.setAuthor(obj.getAuthor());
 	}
-	
-	public List<Post> findByTitle(String text){
+
+	public List<Post> findByTitle(String text) {
+
+		return repo.searchTitle(text);
+	}
+
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
 		
-		return repo.searchTitle(text);	
+		return repo.fullSearch(text, minDate, maxDate);
 	}
 }
