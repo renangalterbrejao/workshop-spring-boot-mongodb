@@ -27,10 +27,6 @@ public class PostService {
 	@Autowired
 	private UserService userService;
 
-	/*public List<Post> findAll() {
-		return repo.findAll();
-	}*/
-
 	public Post findById(String id) {
 
 		Optional<Post> user = repo.findById(id);
@@ -73,9 +69,9 @@ public class PostService {
 		newPost.setBody(obj.getBody());
 		newPost.setAuthor(obj.getAuthor());
 	}
-
-	/*public Post fromDTO(PostDTO objDto) {
-		return new Post(objDto.getId(), objDto.getName(), objDto.getEmail());
-
-	}*/
+	
+	public List<Post> findByTitle(String text){
+		
+		return repo.findByTitleContainingIgnoreCase(text);	
+	}
 }
