@@ -1,8 +1,6 @@
 package com.nomeEmpresa.workshopmongo.resources;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nomeEmpresa.workshopmongo.domain.Post;
+import com.nomeEmpresa.workshopmongo.domain.User;
+import com.nomeEmpresa.workshopmongo.repository.UserRepository;
 import com.nomeEmpresa.workshopmongo.services.PostService;
+import com.nomeEmpresa.workshopmongo.services.UserService;
 
 @RestController
 @RequestMapping(value = "/posts")

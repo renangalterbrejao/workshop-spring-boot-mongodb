@@ -9,7 +9,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.nomeEmpresa.workshopmongo.domain.Post;
+import com.nomeEmpresa.workshopmongo.domain.User;
 import com.nomeEmpresa.workshopmongo.repository.PostRepository;
+import com.nomeEmpresa.workshopmongo.repository.UserRepository;
 import com.nomeEmpresa.workshopmongo.services.exceptions.DatabaseException;
 import com.nomeEmpresa.workshopmongo.services.exceptions.ObjectNotFoundException;
 
@@ -18,6 +20,12 @@ public class PostService {
 
 	@Autowired
 	private PostRepository repo;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private UserService userService;
 
 	/*public List<Post> findAll() {
 		return repo.findAll();
@@ -30,7 +38,15 @@ public class PostService {
 	}
 
 	public Post insert(Post obj) {
-		return repo.insert(obj);
+		
+		repo.insert(obj);
+		
+		User user = userService.findById(obj.getAuthor().getId());
+		
+		user.getPosts().add(obj);
+		userRepository.save(user);
+		
+		return obj;
 	}
 
 	public void delete(String id) {

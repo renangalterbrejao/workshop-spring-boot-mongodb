@@ -1,27 +1,32 @@
 package com.nomeEmpresa.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.nomeEmpresa.workshopmongo.dto.AuthorDTO;
+import com.nomeEmpresa.workshopmongo.dto.CommentDTO;
 
 @Document
 public class Post implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private String id;
 	private Date date;
 	private String title;
 	private String body;
 	private AuthorDTO author;
-	
-	public Post () {
-		
+
+	private List<CommentDTO> commentList = new ArrayList<>();
+
+	public Post() {
+
 	}
 
 	public Post(String id, Date date, String title, String body, AuthorDTO author) {
@@ -73,6 +78,14 @@ public class Post implements Serializable {
 		this.author = author;
 	}
 
+	public List<CommentDTO> getComments() {
+		return commentList;
+	}
+
+	public void setComments(List<CommentDTO> commentList) {
+		this.commentList = commentList;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -96,5 +109,6 @@ public class Post implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
+
 }
